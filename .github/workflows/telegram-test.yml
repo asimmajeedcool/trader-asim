@@ -1,19 +1,16 @@
-name: Trader Asim Telegram Test
+name: Trader Asim Chat ID Check
 
 on:
   workflow_dispatch:
 
 jobs:
-  test:
+  check:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Send Telegram test
+      - name: Find Telegram chat
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          curl -sS -X POST \
-            "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-            -d "chat_id=${TELEGRAM_CHAT_ID}" \
-            --data-urlencode "text=🟢 TRADER ASIM — Telegram connection successful!%0A%0AYour alert system is connected."
+          curl -sS \
+            "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates"
